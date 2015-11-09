@@ -17,5 +17,16 @@ registrator:
 
 app:
     build: .
-    ports: 
-      - 8000 
+    links:
+      - redis
+
+lb:
+    image: andrexus/nginx-consul-template
+    ports:
+      - 8000
+    volumes:
+      - ./consul-template.cfg:/etc/consul-template/config.cfg
+      - ./nginx-template.conf:/etc/consul-template/templates/sites.ctmpl
+      - ./hosts:/etc/hosts
+    links:
+      - app
