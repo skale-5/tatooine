@@ -1,6 +1,7 @@
 consul:
     image: gliderlabs/consul-server
     net: host 
+    command: -bootstrap
 
 redis:
     image: redis
