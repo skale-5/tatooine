@@ -4,4 +4,4 @@ RUN pip install -r requirements.txt
 
 EXPOSE 5000
 
-CMD ["python", "hello.py"]
+CMD ["python", "tatooine.py"]
