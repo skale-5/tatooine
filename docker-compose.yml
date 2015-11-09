@@ -1,0 +1,20 @@
+consul:
+    image: gliderlabs/consul-server
+    net: host 
+
+redis:
+    image: redis
+    ports: 
+      - 6379
+
+registrator:
+    image: gliderlabs/registrator
+    net: host
+    volumes: 
+      - /var/run/docker.sock:/tmp/docker.sock
+    command: consul://127.0.0.1:8500
+
+app:
+    build: .
+    ports: 
+      - 8000 
