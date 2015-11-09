@@ -16,8 +16,8 @@ def GetRedisFromConsul():
 
     pprint.pprint(ConsulRetObj)
 
-    ServiceAddress = ConsulRetObj[0]['Address']
-    ServicePort = ConsulRetObj[0]['ServicePort']
+    ServiceAddress = ConsulRetObj[0]['Address'].decode("utf-8") 
+    ServicePort = ConsulRetObj[0]['ServicePort'].decode("utf-8") 
     
     return ServiceAddress, ServicePort
 
