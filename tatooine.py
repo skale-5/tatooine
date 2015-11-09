@@ -11,7 +11,7 @@ CONSUL_REDIS_KEY = "redis"
 app = Flask(__name__)
 
 def GetRedisFromConsul():
-    MyConsul = consul.Consul(host='172.17.42.1', port=8500)
+    MyConsul = consul.Consul(host='consul', port=8500)
     Index, ConsulRetObj = MyConsul.catalog.service(CONSUL_REDIS_KEY)
 
     pprint.pprint(ConsulRetObj)

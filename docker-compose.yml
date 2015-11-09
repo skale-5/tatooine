@@ -19,3 +19,5 @@ app:
     build: .
     ports: 
       - 5000 
+    extra_hosts:
+        - "consul:172.17.42.1"
