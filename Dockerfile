@@ -1,8 +1,7 @@
-FROM debian:stretch
+FROM python:3.4
 
-RUN apt-get update -y
+RUN pip install -r requirements.txt
 
-RUN apt-get install nginx -y
+EXPOSE 5000
 
-CMD ["nginx", "-g", "daemon off;"]
-
+CMD ["python", "hello.py"]
