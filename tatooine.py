@@ -32,11 +32,15 @@ def GetCounterFromRedis(PServer, PPort):
 
 @app.route("/")
 def hello():
+    try:
     
-    RedisServiceAddress, RedisServicePort = GetRedisFromConsul()
+        RedisServiceAddress, RedisServicePort = GetRedisFromConsul()
 
-    Output = "Redis Server : %s:%s - counter value : %s" % (RedisServiceAddress,RedisServicePort, GetCounterFromRedis(RedisServiceAddress , RedisServicePort))
+        Output = "Redis Server : %s:%s - counter value : %s" % (RedisServiceAddress,RedisServicePort, GetCounterFromRedis(RedisServiceAddress , RedisServicePort))
     
+    except Exception as e:
+	return("Error : %s" % str(e))
+
     return Output
 
 if __name__ == "__main__":
