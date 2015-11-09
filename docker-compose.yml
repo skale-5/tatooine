@@ -13,12 +13,16 @@ registrator:
     net: host
     volumes: 
       - /var/run/docker.sock:/tmp/docker.sock
-    command: consul://127.0.0.1:8500
+    command: consul://consul:8500
 
 app:
     build: .
     links:
       - redis
+    ports: 
+      - 5000 
+    extra_hosts:
+        - "consul:172.17.42.1"
 
 lb:
     image: andrexus/nginx-consul-template
