@@ -1,6 +1,6 @@
 consul:
     image: gliderlabs/consul-server
-    #net: host 
+    net: host 
     command: -bootstrap
 
 redis:
@@ -10,16 +10,12 @@ redis:
 
 registrator:
     image: gliderlabs/registrator
-    #net: host
+    net: host
     volumes: 
       - /var/run/docker.sock:/tmp/docker.sock
     command: consul://consul:8500
-    links:
-      - consul
 
 app:
     build: .
     ports: 
       - 5000 
-    links:
-      - consul
