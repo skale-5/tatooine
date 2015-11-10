@@ -1,7 +1,7 @@
-consul:
-    image: gliderlabs/consul-server
-    net: host 
-    command: -bootstrap
+#consul-server:
+#    image: gliderlabs/consul-server
+#    net: host 
+#    command: -bootstrap
 
 redis:
     image: redis
@@ -15,22 +15,24 @@ registrator:
       - /var/run/docker.sock:/tmp/docker.sock
     command: consul://consul:8500
 
-app:
+tatooine:
     build: .
-    links:
-      - redis
     ports: 
       - 5000 
     extra_hosts:
-        - "consul:172.17.42.1"
+      - "consul:172.16.21.35"
+    environment:
+      SERVICE_5000_NAME: 'tatooine'
+      SERVICE_5000_CHECK_HTTP: '/'
+      SERVICE_5000_CHECK_INTERVAL: '10s'
+      SERVICE_TAGS: 'urlprefix-/tatooine'
 
 lb:
-    image: andrexus/nginx-consul-template
+    image: magiconair/fabio 
     ports:
-      - 8000
+      - 9999:9999
+      - 9998:9998
     volumes:
-      - ./consul-template.cfg:/etc/consul-template/config.cfg
-      - ./nginx-template.conf:/etc/consul-template/templates/sites.ctmpl
-      - ./hosts:/etc/hosts
-    links:
-      - app
+      - ./fabio.properties:/etc/fabio/fabio.properties
+    extra_hosts:
+      - "consul:172.16.21.35"
