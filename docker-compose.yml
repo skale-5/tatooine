@@ -13,14 +13,14 @@ registrator:
     net: host
     volumes: 
       - /var/run/docker.sock:/tmp/docker.sock
-    command: consul://consul:8500
+    command: consul://172.17.42.1:8500
 
 tatooine:
     build: .
     ports: 
       - 5000 
     extra_hosts:
-      - "consul:172.16.21.35"
+      - "consul:172.17.42.1"
     environment:
       SERVICE_5000_NAME: 'tatooine'
       SERVICE_5000_CHECK_HTTP: '/'
@@ -35,4 +35,4 @@ lb:
     volumes:
       - ./fabio.properties:/etc/fabio/fabio.properties
     extra_hosts:
-      - "consul:172.16.21.35"
+      - "consul:172.17.42.1"
